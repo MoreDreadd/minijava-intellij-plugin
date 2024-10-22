@@ -1,0 +1,54 @@
+{
+  parserClass="com.github.moredreadd.minijava.parser.MiniJavaParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="MiniJava"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.github.moredreadd.minijava.psi"
+  psiImplPackage="com.github.moredreadd.minijava.psi.impl"
+
+  elementTypeHolderClass="com.github.moredreadd.minijava.psi.MiniJavaTypes"
+  elementTypeClass="com.github.moredreadd.minijava.psi.MiniJavaElementType"
+  tokenTypeClass="com.github.moredreadd.minijava.psi.MiniJavaTokenType"
+}
+
+{
+	tokens = [
+		identifier = "ident"
+		void = "void"
+		func = "func"
+		return = "return"
+		if = "if"
+		else = "else"
+		int = "int"
+		print = "print"
+		final = "final"
+		while = "while"
+		compop = "regexp:(==|!=|<=|>=|<|>)"
+		number = "regexp:0|([1-9][0-9]*)"
+		comment = "regexp://.*"
+	]
+}
+
+miniJavaFile ::= constDecl? varDecl? procedure? function? statement <<eof>>
+constDecl ::= final int constZuw ("," constZuw)* ";"
+constZuw ::= identifier "=" number
+varDecl ::= int varZuw ("," varZuw)* ";"
+varZuw ::= identifier ("=" number)?
+procedure ::= void identifier "(" routinenParameter? ")" "{" routinenBlock? "}"
+function ::= func identifier "(" routinenParameter? ")" "{" routinenBlock? return expression ";" "}"
+routinenParameter ::= int identifier ("," int identifier)*
+routinenBlock ::= constDecl? varDecl? statement
+expression ::= summe
+summe ::= produkt (("+" | "-") produkt)*
+produkt ::= term (("*" | "/") term)*
+term ::= number | (identifier functionCall?) | "(" expression ")"
+condition ::= expression compop expression
+functionCall ::= "(" (expression ("," expression)*)? ")"
+procCall ::= "(" (expression ("," expression)*)? ")"
+statement ::= ((identifier (("=" expression) | (procCall)) | print "(" expression ")") ";") |
+			  "{" statement* "}" |
+			  if condition statement (else statement)? |
+			  while condition statement |
+			  comment

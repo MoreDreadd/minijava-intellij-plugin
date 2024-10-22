@@ -1,0 +1,55 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.github.moredreadd.minijava-intellij-plugin</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>MiniJava Syntax Highlighting</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="fabian.ferrari@alumni.fh-aachen.de" url="https://github.com/MoreDreadd">Fabian Ferrari</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    A plugin for IntelliJ that adds language support for MiniJava.<br/>
+
+    Supported features:
+    <ul>
+        <li>Syntax highlighting</li>
+        <li>Error highlighting</li>
+    </ul>
+
+    Supported file extensions:
+    <ul>
+        <li>.mj</li>
+        <li>.minijava</li>
+        <li>.minja</li>
+    </ul>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType
+            name="MiniJava File"
+            implementationClass="com.github.moredreadd.minijava.MiniJavaFileType"
+            fieldName="INSTANCE"
+            language="MiniJava"
+            extensions="mj;minijava;minja"/>
+        <lang.parserDefinition
+            language="MiniJava"
+            implementationClass="com.github.moredreadd.minijava.MiniJavaParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="MiniJava"
+                implementationClass="com.github.moredreadd.minijava.MiniJavaSyntaxHighlighterFactory"/>
+        <colorSettingsPage
+                implementation="com.github.moredreadd.minijava.MiniJavaColorSettingsPage"/>
+    </extensions>
+</idea-plugin>
