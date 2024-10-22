@@ -3,7 +3,6 @@ package com.github.moredreadd.minijava;
 import com.github.moredreadd.minijava.psi.MiniJavaTypes;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
-import com.intellij.openapi.editor.HighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
@@ -15,13 +14,13 @@ public class MiniJavaSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey IDENT =
             createTextAttributesKey("MINI_JAVA_IDENT", DefaultLanguageHighlighterColors.CONSTANT);
     public static final TextAttributesKey KEYWORD =
-            createTextAttributesKey("MINI_JAVA_IDENT", DefaultLanguageHighlighterColors.KEYWORD);
+            createTextAttributesKey("MINI_JAVA_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
     public static final TextAttributesKey COMMENT =
-            createTextAttributesKey("SIMPLE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
+            createTextAttributesKey("MINI_JAVA_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey NUMBER =
-            createTextAttributesKey("SIMPLE_COMMENT", DefaultLanguageHighlighterColors.NUMBER);
+            createTextAttributesKey("MINI_JAVA_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
     public static final TextAttributesKey TYPE =
-            createTextAttributesKey("SIMPLE_COMMENT", DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL);
+            createTextAttributesKey("MINI_JAVA_TYPE", DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL);
 
 
     private static final TextAttributesKey[] IDENT_KEYS = new TextAttributesKey[]{IDENT};
