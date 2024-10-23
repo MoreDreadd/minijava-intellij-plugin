@@ -1,4 +1,4 @@
-import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+
 
 plugins {
     id("java")
