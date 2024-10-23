@@ -31,7 +31,7 @@
 	]
 }
 
-miniJavaFile ::= constDecl? varDecl? procedure? function? statement <<eof>>
+miniJavaFile ::= constDecl? varDecl? procedure* function* statement <<eof>>
 constDecl ::= final int constZuw ("," constZuw)* ";"
 constZuw ::= identifier "=" number
 varDecl ::= int varZuw ("," varZuw)* ";"

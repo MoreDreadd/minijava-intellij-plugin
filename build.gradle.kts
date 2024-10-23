@@ -1,4 +1,4 @@
-import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+
 
 plugins {
     id("java")
@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.github.moredreadd"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories {
     mavenCentral()

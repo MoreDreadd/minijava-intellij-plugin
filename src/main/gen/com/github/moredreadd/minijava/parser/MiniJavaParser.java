@@ -199,7 +199,7 @@ public class MiniJavaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // constDecl? varDecl? procedure? function? statement <<eof>>
+  // constDecl? varDecl? procedure* function* statement <<eof>>
   static boolean miniJavaFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "miniJavaFile")) return false;
     boolean r;
@@ -228,17 +228,25 @@ public class MiniJavaParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // procedure?
+  // procedure*
   private static boolean miniJavaFile_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "miniJavaFile_2")) return false;
-    procedure(b, l + 1);
+    while (true) {
+      int c = current_position_(b);
+      if (!procedure(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "miniJavaFile_2", c)) break;
+    }
     return true;
   }
 
-  // function?
+  // function*
   private static boolean miniJavaFile_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "miniJavaFile_3")) return false;
-    function(b, l + 1);
+    while (true) {
+      int c = current_position_(b);
+      if (!function(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "miniJavaFile_3", c)) break;
+    }
     return true;
   }
 
@@ -434,7 +442,7 @@ public class MiniJavaParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // ((identifier (("=" expression) | (procCall)) | print "(" expression ")") ";") |
-  // 			  "{" statement* "}" |
+  // 			  "{" (statement)* "}" |
   // 			  if condition statement (else statement)? |
   // 			  while condition statement |
   // 			  comment
@@ -529,7 +537,7 @@ public class MiniJavaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // "{" statement* "}"
+  // "{" (statement)* "}"
   private static boolean statement_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement_1")) return false;
     boolean r;
@@ -541,15 +549,25 @@ public class MiniJavaParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // statement*
+  // (statement)*
   private static boolean statement_1_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement_1_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!statement(b, l + 1)) break;
+      if (!statement_1_1_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "statement_1_1", c)) break;
     }
     return true;
+  }
+
+  // (statement)
+  private static boolean statement_1_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "statement_1_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = statement(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   // if condition statement (else statement)?
